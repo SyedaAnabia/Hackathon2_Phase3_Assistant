@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-bg: 0, 0, 0; /* #000000 Pure Black */
+  --surface-card: 0, 0, 0; /* #000000 Pure Black */
+  --accent-purple: 187, 134, 252; /* #BB86FC Electric Purple */
+  --accent-teal: 3, 218, 198; /* #03DAC6 Teal/Cyan */
+  --text-primary: 255, 255, 255; /* #FFFFFF */
+  --text-secondary: 255, 255, 255; /* #FFFFFF */
+  --border-color: 60, 60, 60;
+}
+
+body {
+  color: rgb(var(--text-primary));
+  background: linear-gradient(135deg,
+    #000000 0%,     /* Pure black at top */
+    #000000 20%,    /* Pure black */
+    #0A0015 40%,    /* Dark black/navy */
+    #6B2E6B 50%,    /* Deep purple in the middle */
+    #0A0015 60%,    /* Dark black/navy */
+    #000000 80%,    /* Pure black */
+    #000000 100%    /* Pure black at bottom */
+  );
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  font-family: 'Inter', 'Montserrat', 'Poppins', sans-serif;
+}
+
+/* Custom classes for the new theme */
+.bg-primary {
+  background-color: rgb(var(--primary-bg));
+}
+
+.bg-surface {
+  background-color: rgb(var(--surface-card));
+}
+
+.text-primary {
+  color: rgb(var(--text-primary));
+}
+
+.text-secondary {
+  color: rgb(var(--text-secondary));
+}
+
+.accent-purple {
+  color: rgb(var(--accent-purple));
+}
+
+.accent-teal {
+  color: rgb(var(--accent-teal));
+}
+
+.btn-accent {
+  background-color: rgb(var(--accent-purple));
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(var(--accent-purple), 0.3);
+}
+
+.btn-accent:hover {
+  background-color: rgba(var(--accent-purple), 0.9);
+  box-shadow: 0 0 20px rgba(var(--accent-purple), 0.5);
+}
+
+.btn-secondary {
+  background-color: rgb(var(--accent-teal));
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(var(--accent-teal), 0.9);
+}
+
+.card {
+  background-color: rgb(var(--surface-card));
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.input-field {
+  background-color: rgba(var(--surface-card));
+  border: 1px solid rgba(var(--text-secondary), 0.3);
+  color: rgb(var(--text-primary));
+  border-radius: 8px;
+  padding: 12px;
+  transition: all 0.3s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: rgba(var(--accent-purple), 0.5);
+  box-shadow: 0 0 0 2px rgba(var(--accent-purple), 0.2);
+}
+
+/* Override text colors to white */
+.text-gray-800 {
+  color: #FFFFFF !important;
+}
+
+.text-gray-600 {
+  color: #FFFFFF !important;
+}
+
+.text-purple-800 {
+  color: #FFFFFF !important;
+}
+
+.text-purple-600 {
+  color: #FFFFFF !important;
+}
+
+.text-gray-500 {
+  color: #FFFFFF !important;
+}
+
+.text-custom-gray {
+  color: #FFFFFF !important;
+}
+
+.text-custom-white {
+  color: #FFFFFF !important;
+}
+
+/* Override background colors to black */
+.bg-white {
+  background-color: #000000 !important;
+}
+
+.bg-gray-50 {
+  background-color: #000000 !important;
+}
+
+.bg-gray-100 {
+  background-color: #000000 !important;
+}
+
+.bg-indigo-100 {
+  background-color: #000000 !important;
+}
+
+.bg-[#1F1B24] {
+  background-color: #000000 !important;
+}
+
+.bg-[#121212] {
+  background-color: #000000 !important;
+}
+
+.bg-gradient-to-br {
+  background-color: #000000 !important;
+}

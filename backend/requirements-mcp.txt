@@ -1,0 +1,5 @@
+# MCP (Model Context Protocol) dependencies
+# Install with: pip install -r requirements-mcp.txt
+# Note: These may conflict with other dependencies, so install in a separate environment if needed
+mcp==1.26.0
+fastapi-mcp==0.2.0
