@@ -9,10 +9,14 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "export": "next export",
-    "deploy": "next build && next export && touch out/.nojekyll"
+    "deploy": "next build && next export && touch out/.nojekyll",
+    "mock-server": "node mock-api-server.js"
   },
   "dependencies": {
     "@types/uuid": "^10.0.0",
+    "axios": "^1.13.4",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
     "next": "^16.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

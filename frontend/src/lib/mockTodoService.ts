@@ -1,16 +1,23 @@
 // frontend/src/lib/mockTodoService.ts
 
+import { Todo, TodoCreate, TodoUpdate } from '@/types';
+
 // Mock service functions for todo operations
 export const mockTodoService = {
   // Get all todos for the authenticated user
-  getTodos: async (): Promise<any[]> => {
+  getTodos: async (): Promise<Todo[]> => {
     try {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 300));
 
       // Get todos from localStorage
       const todos = JSON.parse(localStorage.getItem('mock_todos') || '[]');
-      return todos;
+
+      // Ensure todos have position values
+      return todos.map((todo: Todo, index: number) => ({
+        ...todo,
+        position: todo.position !== undefined ? todo.position : index
+      }));
     } catch (error) {
       console.error('Error fetching mock todos:', error);
       throw error;
@@ -18,7 +25,7 @@ export const mockTodoService = {
   },
 
   // Create a new todo
-  createTodo: async (todoData: { title: string; description?: string }): Promise<any> => {
+  createTodo: async (todoData: TodoCreate): Promise<Todo> => {
     try {
       console.log('Mock service creating todo with data:', todoData); // Debug log
 
@@ -30,20 +37,25 @@ export const mockTodoService = {
       console.log('Current todos in storage:', todos); // Debug log
 
       // Create new todo with unique ID
-      const newTodo = {
+      const newTodo: Todo = {
         id: Math.random().toString(36).substr(2, 9),
         title: todoData.title,
         description: todoData.description,
         is_completed: false,
         user_id: localStorage.getItem('user_email') || 'mock_user',
         created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
+        due_date: todoData.due_date,
+        category: todoData.category,
+        priority: todoData.priority || 'medium',
+        reminder: todoData.reminder,
+        position: todos.length // Set position to end of list
       };
 
       console.log('New todo being created:', newTodo); // Debug log
 
       // Add new todo to the list
-      todos.unshift(newTodo);
+      todos.push(newTodo);
 
       // Save updated todos to localStorage
       localStorage.setItem('mock_todos', JSON.stringify(todos));
@@ -57,7 +69,7 @@ export const mockTodoService = {
   },
 
   // Get a specific todo
-  getTodo: async (todoId: string): Promise<any> => {
+  getTodo: async (todoId: string): Promise<Todo> => {
     try {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 300));
@@ -66,7 +78,7 @@ export const mockTodoService = {
       const todos = JSON.parse(localStorage.getItem('mock_todos') || '[]');
 
       // Find the todo with the specified ID
-      const todo = todos.find((t: any) => t.id === todoId);
+      const todo = todos.find((t: Todo) => t.id === todoId);
 
       if (!todo) {
         throw new Error('Todo not found');
@@ -80,7 +92,7 @@ export const mockTodoService = {
   },
 
   // Update a specific todo
-  updateTodo: async (todoId: string, todoData: any): Promise<any> => {
+  updateTodo: async (todoId: string, todoData: TodoUpdate): Promise<Todo> => {
     try {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 400));
@@ -89,14 +101,14 @@ export const mockTodoService = {
       const todos = JSON.parse(localStorage.getItem('mock_todos') || '[]');
 
       // Find the index of the todo with the specified ID
-      const todoIndex = todos.findIndex((t: any) => t.id === todoId);
+      const todoIndex = todos.findIndex((t: Todo) => t.id === todoId);
 
       if (todoIndex === -1) {
         throw new Error('Todo not found');
       }
 
       // Update the todo
-      const updatedTodo = {
+      const updatedTodo: Todo = {
         ...todos[todoIndex],
         ...todoData,
         updated_at: new Date().toISOString()
@@ -116,7 +128,7 @@ export const mockTodoService = {
   },
 
   // Toggle completion status of a todo
-  toggleTodoComplete: async (todoId: string): Promise<any> => {
+  toggleTodoComplete: async (todoId: string): Promise<Todo> => {
     try {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 300));
@@ -125,14 +137,14 @@ export const mockTodoService = {
       const todos = JSON.parse(localStorage.getItem('mock_todos') || '[]');
 
       // Find the index of the todo with the specified ID
-      const todoIndex = todos.findIndex((t: any) => t.id === todoId);
+      const todoIndex = todos.findIndex((t: Todo) => t.id === todoId);
 
       if (todoIndex === -1) {
         throw new Error('Todo not found');
       }
 
       // Toggle the completion status
-      const updatedTodo = {
+      const updatedTodo: Todo = {
         ...todos[todoIndex],
         is_completed: !todos[todoIndex].is_completed,
         updated_at: new Date().toISOString()
@@ -161,7 +173,12 @@ export const mockTodoService = {
       let todos = JSON.parse(localStorage.getItem('mock_todos') || '[]');
 
       // Filter out the todo with the specified ID
-      todos = todos.filter((t: any) => t.id !== todoId);
+      todos = todos.filter((t: Todo) => t.id !== todoId);
+
+      // Reorder positions after deletion
+      todos.forEach((todo: Todo, index: number) => {
+        todo.position = index;
+      });
 
       // Save updated todos to localStorage
       localStorage.setItem('mock_todos', JSON.stringify(todos));
@@ -170,4 +187,26 @@ export const mockTodoService = {
       throw error;
     }
   },
+
+  // Reorder todos
+  reorderTodos: async (reorderedTodos: Todo[]): Promise<Todo[]> => {
+    try {
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 300));
+
+      // Update positions based on new order
+      const todosWithNewPositions = reorderedTodos.map((todo, index) => ({
+        ...todo,
+        position: index
+      }));
+
+      // Save updated todos to localStorage
+      localStorage.setItem('mock_todos', JSON.stringify(todosWithNewPositions));
+
+      return todosWithNewPositions;
+    } catch (error) {
+      console.error('Error reordering todos:', error);
+      throw error;
+    }
+  }
 };

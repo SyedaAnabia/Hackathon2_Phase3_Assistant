@@ -1,6 +1,6 @@
 // frontend/app/components/TodoList.tsx
 
-import { Todo } from '../../src/types';
+import { Todo } from '@/types';
 import TodoItem from './TodoItem';
 
 interface TodoListProps {

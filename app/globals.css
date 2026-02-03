@@ -153,3 +153,114 @@ body {
 .bg-gradient-to-br {
   background-color: #000000 !important;
 }
+
+/* Animations for chat button */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s infinite;
+}
+
+.group:active .animate-ripple {
+  animation: ripple 0.6s linear;
+}
+
+/* Floating chat button specific styles */
+.floating-chat-button {
+  width: 60px;
+  height: 60px;
+  bottom: 24px;
+  right: 24px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+}
+
+.floating-chat-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
+  background: linear-gradient(135deg, #7e22ce, #3b82f6);
+}
+
+/* Glassmorphism effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Priority indicators */
+.priority-high {
+  background-color: #ef4444; /* red-500 */
+}
+
+.priority-medium {
+  background-color: #eab308; /* yellow-500 */
+}
+
+.priority-low {
+  background-color: #22c55e; /* green-500 */
+}
+
+/* Drag and drop styling */
+.drag-over {
+  border: 2px dashed #bb86fc;
+  background-color: rgba(187, 134, 252, 0.1);
+}
+
+/* Message bubble styling */
+.message-user {
+  background: linear-gradient(135deg, #bb86fc, #9d79e8);
+  border-radius: 18px 18px 4px 18px;
+}
+
+.message-assistant {
+  background: linear-gradient(135deg, #374151, #1f2937);
+  border-radius: 18px 18px 18px 4px;
+}
+
+/* Loading animations */
+.loading-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 2px;
+  animation: loading-dots 1.4s infinite both;
+}
+
+.loading-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.loading-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes loading-dots {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* Theme toggle transition */
+.theme-transition {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

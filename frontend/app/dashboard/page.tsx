@@ -39,21 +39,17 @@ export default function DashboardPage() {
     return true; // 'all' filter
   });
 
-  const handleAddTodo = async (title: string, description?: string) => {
+  const handleAddTodo = (todoData: { title: string; description?: string }) => {
     if (!user) return;
 
-    try {
-      const newTodoData = {
-        title,
-        description
-      };
-
-      const newTodo = await todoService.createTodo(newTodoData);
-      setTodos([newTodo, ...todos]); // Add new todo to the top
-    } catch (err) {
-      console.error('Error adding todo:', err);
-      setError('Failed to add task. Please try again.');
-    }
+    todoService.createTodo(todoData)
+      .then(newTodo => {
+        setTodos([newTodo, ...todos]); // Add new todo to the top
+      })
+      .catch(err => {
+        console.error('Error adding todo:', err);
+        setError('Failed to add task. Please try again.');
+      });
   };
 
   const handleUpdateTodo = async (id: string, updates: Partial<Todo>) => {
@@ -88,6 +84,10 @@ export default function DashboardPage() {
       console.error('Error toggling todo:', err);
       setError('Failed to update todo. Please try again.');
     }
+  };
+
+  const handleReorder = async (reorderedTodos: Todo[]) => {
+    setTodos(reorderedTodos);
   };
 
   if (!user) {
@@ -172,6 +172,7 @@ export default function DashboardPage() {
                 onUpdateTodo={handleUpdateTodo}
                 onDeleteTodo={handleDeleteTodo}
                 onToggleComplete={handleToggleComplete}
+                onReorder={handleReorder}
               />
             </div>
           </div>

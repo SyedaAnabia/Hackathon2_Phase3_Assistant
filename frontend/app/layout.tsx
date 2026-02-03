@@ -1,7 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { AuthProvider } from '../src/contexts/AuthContext';
-import ChatBot from '@/components/ChatBot';
+import FloatingChatButton from './components/FloatingChatButton';
 
 export const metadata: Metadata = {
   title: 'Todo App',
@@ -26,7 +26,7 @@ export default function RootLayout({
       <body>
         <AuthProvider>
           {children}
-          <ChatBot />
+          <FloatingChatButton />
         </AuthProvider>
       </body>
     </html>

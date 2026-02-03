@@ -2,5 +2,8 @@
 
 import { mockTodoService } from './mockTodoService';
 
-// Use mock service for now since the real service has import issues
-export const todoServiceToUse = mockTodoService;
+// Extend the mock service to include reorderTodos
+export const todoServiceToUse = {
+  ...mockTodoService,
+  reorderTodos: mockTodoService.reorderTodos
+};

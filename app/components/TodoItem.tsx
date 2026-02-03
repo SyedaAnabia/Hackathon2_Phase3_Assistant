@@ -1,7 +1,7 @@
 // frontend/app/components/TodoItem.tsx
 
 import { useState } from 'react';
-import { Todo } from '../../src/types';
+import { Todo } from '@/types';
 
 interface TodoItemProps {
   todo: Todo;

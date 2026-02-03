@@ -1,11 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useAuth } from '../frontend/src/contexts/AuthContext'; // Updated path to match actual location
-import { TodoList } from '../frontend/app/components/TodoList';
-import { TodoForm } from '../frontend/app/components/TodoForm';
-import { Todo } from '../frontend/src/types';
-import { todoServiceToUse as todoService } from '../frontend/src/lib/todoServiceSelector';
+import { useAuth } from '@/contexts/AuthContext';
+import { Todo } from '@/types';
+import { todoServiceToUse as todoService } from '@/lib/todoServiceSelector';
 import Link from 'next/link';
 
 export default function DashboardPage() {
@@ -38,57 +36,6 @@ export default function DashboardPage() {
     if (filter === 'completed') return todo.is_completed;
     return true; // 'all' filter
   });
-
-  const handleAddTodo = async (title: string, description?: string) => {
-    if (!user) return;
-
-    try {
-      const newTodoData = {
-        title,
-        description
-      };
-
-      const newTodo = await todoService.createTodo(newTodoData);
-      setTodos([newTodo, ...todos]); // Add new todo to the top
-    } catch (err) {
-      console.error('Error adding todo:', err);
-      setError('Failed to add task. Please try again.');
-    }
-  };
-
-  const handleUpdateTodo = async (id: string, updates: Partial<Todo>) => {
-    try {
-      const updatedTodo = await todoService.updateTodo(id, updates);
-      setTodos(todos.map(todo =>
-        todo.id === id ? updatedTodo : todo
-      ));
-    } catch (err) {
-      console.error('Error updating todo:', err);
-      setError('Failed to update todo. Please try again.');
-    }
-  };
-
-  const handleDeleteTodo = async (id: string) => {
-    try {
-      await todoService.deleteTodo(id);
-      setTodos(todos.filter(todo => todo.id !== id));
-    } catch (err) {
-      console.error('Error deleting todo:', err);
-      setError('Failed to delete todo. Please try again.');
-    }
-  };
-
-  const handleToggleComplete = async (id: string) => {
-    try {
-      const updatedTodo = await todoService.toggleTodoComplete(id);
-      setTodos(todos.map(todo =>
-        todo.id === id ? updatedTodo : todo
-      ));
-    } catch (err) {
-      console.error('Error toggling todo:', err);
-      setError('Failed to update todo. Please try again.');
-    }
-  };
 
   if (!user) {
     return <div>Redirecting to login...</div>;
@@ -164,15 +111,20 @@ export default function DashboardPage() {
               </div>
             )}
 
-            <TodoForm onAddTodo={handleAddTodo} />
-
-            <div className="mt-6">
-              <TodoList
-                todos={filteredTodos}
-                onUpdateTodo={handleUpdateTodo}
-                onDeleteTodo={handleDeleteTodo}
-                onToggleComplete={handleToggleComplete}
-              />
+            <div className="mb-6">
+              <div className="grid grid-cols-1 gap-4">
+                <div>
+                  <p className="text-white text-center py-4">Please navigate to the Todo page to manage your tasks</p>
+                  <div className="text-center">
+                    <Link
+                      href="/todo"
+                      className="px-4 py-2 bg-black hover:bg-[#3c3c3c] text-white font-semibold rounded-lg transition duration-200 border border-white"
+                    >
+                      Go to Todo Page
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
