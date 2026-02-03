@@ -4,7 +4,7 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { authServiceToUse as authService } from '../lib/authServiceSelector'; // Import the selected auth service
+import { authServiceToUse as authService } from '@/frontend/src/lib/authServiceSelector'// Import the selected auth service
 
 interface AuthContextType {
   user: any | null;

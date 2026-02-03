@@ -142,11 +142,12 @@ body {
   background-color: #000000 !important;
 }
 
-.bg-[#1F1B24] {
+/* Fixed: Removed invalid CSS syntax */
+.bg-custom-dark-1 {
   background-color: #000000 !important;
 }
 
-.bg-[#121212] {
+.bg-custom-dark-2 {
   background-color: #000000 !important;
 }
 
