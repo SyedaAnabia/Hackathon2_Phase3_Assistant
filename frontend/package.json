@@ -12,6 +12,8 @@
     "deploy": "npm run build && npm run export"
   },
   "dependencies": {
+    "@chatscope/chat-ui-kit-react": "^2.1.1",
+    "@chatscope/chat-ui-kit-styles": "^1.4.0",
     "@types/node": "^20.10.5",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
