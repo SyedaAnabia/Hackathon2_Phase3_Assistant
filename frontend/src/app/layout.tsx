@@ -3,7 +3,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../styles/globals.css';
-import { ToastProvider } from '@/components/ToastContainer';
+import ToastContainer from '@/components/ToastContainer';
 import ClientWrapper from './ClientWrapper';
 import { AuthProvider } from '@/contexts/AuthContext';
 
@@ -23,11 +23,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <ToastProvider>
-            <ClientWrapper>
-              {children}
-            </ClientWrapper>
-          </ToastProvider>
+          <ClientWrapper>
+            {children}
+            <ToastContainer />
+          </ClientWrapper>
         </AuthProvider>
       </body>
     </html>

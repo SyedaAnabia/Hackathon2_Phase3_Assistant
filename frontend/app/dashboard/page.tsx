@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { TodoList } from '@/components/TodoList';
 import { TodoForm } from '@/components/TodoForm';
-import { Todo } from '@/types';
+import { Todo, TodoCreate } from '@/types';
 import { todoServiceToUse as todoService } from '@/lib/todoServiceSelector';
 import Link from 'next/link';
 
@@ -39,10 +39,10 @@ export default function DashboardPage() {
     return true; // 'all' filter
   });
 
-  const handleAddTodo = (todo: { title: string; description?: string }) => {
+  const handleAddTodo = (todoData: TodoCreate) => {
     if (!user) return;
 
-    todoService.createTodo(todo)
+    todoService.createTodo(todoData)
       .then(newTodo => {
         setTodos([newTodo, ...todos]); // Add new todo to the top
       })

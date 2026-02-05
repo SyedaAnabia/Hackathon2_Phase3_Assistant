@@ -1,6 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 
+// Extend Window interface for speech recognition
+declare global {
+  interface Window {
+    SpeechRecognition: any;
+    webkitSpeechRecognition: any;
+  }
+}
+
 // Define TypeScript interfaces
 interface Message {
   id: string;
@@ -297,7 +305,7 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ isOpen, onClose }) => {
         recognitionInstance.interimResults = true;
         recognitionInstance.lang = 'en-US';
 
-        recognitionInstance.onresult = (event) => {
+        recognitionInstance.onresult = (event: any) => {
           let finalTranscript = '';
           for (let i = event.resultIndex; i < event.results.length; i++) {
             const transcript = event.results[i][0].transcript;
@@ -309,7 +317,7 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ isOpen, onClose }) => {
           setInputValue(finalTranscript);
         };
 
-        recognitionInstance.onerror = (event) => {
+        recognitionInstance.onerror = (event: any) => {
           console.error('Speech recognition error', event.error);
           setIsListening(false);
         };
